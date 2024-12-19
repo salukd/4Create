@@ -1,0 +1,27 @@
+﻿services:
+  clinica.api.rest:
+    image: clinica.api.rest
+    restart: always
+    build:
+      context: .
+      dockerfile: src/Clinica.Api.Rest/Dockerfile
+    environment:
+      ConnectionStrings__DefaultConnection: Server=clinica.db,1433;Database=ClinicaDb;User Id=sa;Password=Password123!;Encrypt=False;MultipleActiveResultSets=true;
+      ConnectionStrings__Cache: clinica.cache:6379,abortConnect=false
+    ports:
+      - "8080:8080"
+    depends_on:
+      - clinica.cache
+      - clinica.db  
+  clinica.db:
+    image: mcr.microsoft.com/azure-sql-edge:latest
+    environment:
+      ACCEPT_EULA: 1
+      MSSQL_SA_PASSWORD: Password123!
+    ports:
+      - "1433:1433"
+  clinica.cache:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+  
