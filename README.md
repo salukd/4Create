@@ -12,8 +12,8 @@
 
 1. **Clone the Repository**  
    ```bash
-   git clone <repository-url>
-   cd <repository-directory>
+   git clone https://github.com/salukd/4Create.git
+   cd 4Create
    ```
 
 2. **Start the Application**  
